@@ -1,8 +1,12 @@
 package ru.javawebinar.topjava.model;
 
+import ru.javawebinar.topjava.util.TimeUtil;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MealTo {
+    private Integer id;
     private final LocalDateTime dateTime;
 
     private final String description;
@@ -18,8 +22,8 @@ public class MealTo {
         this.excess = excess;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getDateTime() {
+        return TimeUtil.getFormatedDateTime(dateTime);
     }
 
     public String getDescription() {
@@ -33,6 +37,14 @@ public class MealTo {
     public boolean isExcess() {
         return excess;
     }
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 
     @Override
     public String toString() {
