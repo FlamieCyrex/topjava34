@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.to;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 
 public class MealTo {
     private final Integer id;
