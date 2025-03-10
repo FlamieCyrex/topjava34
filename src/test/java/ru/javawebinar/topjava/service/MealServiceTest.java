@@ -1,7 +1,8 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -14,6 +15,8 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertThrows;
 import static ru.javawebinar.topjava.MealTestData.*;
@@ -26,8 +29,31 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@Ignore
 public class MealServiceTest {
+    private static Map<String, Long> testTimes = new HashMap<>();
+
+    @Rule
+    public TestWatcher watcher = new TestWatcher() {
+        private long startTime;
+
+        @Override
+        protected void starting(Description description) {
+            startTime = System.currentTimeMillis();
+        }
+
+        @Override
+        protected void finished(Description description) {
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            testTimes.put(description.getMethodName(), executionTime);
+            System.out.println(description.getMethodName() + " took " + executionTime + " ms");
+        }
+    };
+    @AfterClass
+    public static void printSummary() {
+        System.out.println("\n Test Time Summary:");
+        testTimes.forEach((k, v) -> System.out.println(k + ": " + v));
+    }
 
     @Autowired
     private MealService service;

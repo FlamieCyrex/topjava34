@@ -14,10 +14,10 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "meal")
 @NamedQueries({
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:user_id"),
-        @NamedQuery(name = Meal.GET_ALL, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id ORDER BY dateTime"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m  WHERE m.id=:id AND m.user.id=:user_id"),
+        @NamedQuery(name = Meal.GET_ALL, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id order by dateTime DESC"),
         @NamedQuery(name = Meal.GEL_ALL_IN_PERIOD, query = "SELECT m FROM Meal m WHERE m.user.id=?1 AND m.dateTime >= ?2" +
-                "AND dateTime < ?3 ORDER BY dateTime")
+                "AND dateTime < ?3 ORDER BY dateTime DESC ")
 
 })
 public class Meal extends AbstractBaseEntity {
