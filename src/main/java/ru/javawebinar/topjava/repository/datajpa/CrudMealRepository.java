@@ -8,8 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
-    @Transactional
-    @Modifying
-    @Query("DELETE FROM Meal m WHERE m.id=:mealId AND m.user.id=:userId")
-    int delete(@Param("mealId") int mealId, @Param("userId") int userId);
+
 }
